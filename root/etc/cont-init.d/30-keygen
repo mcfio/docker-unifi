@@ -6,12 +6,14 @@
 #   -in /etc/letsencrypt/live/mysubdomain.mydomain.com/fullchain.pem \
 #   -out /config/cert/unifi.p12 -name ubnt -password pass:temppass
 [[ -f /config/cert/unifi.p12 ]] && \
+    echo "Importing PKCS#12 certificate..."
     keytool -importkeystore -deststorepass aircontrolenterprise -destkeypass aircontrolenterprise -destkeystore /config/data/keystore \
         -srckeystore /config/cert/unifi.p12 -srcstoretype PKCS12 -srcstorepass temppass -alias ubnt -noprompt
     
 
 # generate key if none are available
 [[ ! -f /config/data/keystore ]] && \
+    echo "Generating and importing new certificate..."
 	keytool -genkey -keyalg RSA -alias unifi -keystore /config/data/keystore \
 	-storepass aircontrolenterprise -keypass aircontrolenterprise -validity 1825 \
 	-keysize 4096 -dname "cn=unifi"
