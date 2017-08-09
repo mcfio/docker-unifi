@@ -13,10 +13,10 @@
 
 # generate key if none are available
 [[ ! -f /config/data/keystore ]] && \
-    echo "Generating and importing new certificate..."
-	keytool -genkey -keyalg RSA -alias unifi -keystore /config/data/keystore \
-	-storepass aircontrolenterprise -keypass aircontrolenterprise -validity 1825 \
-	-keysize 4096 -dname "cn=unifi"
+  echo "Generating and importing new certificate..."
+  keytool -genkey -keyalg RSA -alias unifi -keystore /config/data/keystore \
+    -storepass aircontrolenterprise -keypass aircontrolenterprise -validity 1825 \
+    -keysize 4096 -dname "cn=unifi"
 
 # permissions
 chown mcf:mcf \
