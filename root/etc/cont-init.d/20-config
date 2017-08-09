@@ -13,6 +13,6 @@ mkdir -p \
 [[ ! -L /usr/lib/unifi/run ]] && ln -s /config/run /usr/lib/unifi/run
 
 # permissions
-chown -R abc:abc \
+chown -R mcf:mcf \
 	/config \
 	/usr/lib/unifi
