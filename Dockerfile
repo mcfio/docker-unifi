@@ -7,7 +7,7 @@ ARG VERSION
 LABEL build_version="mcf.io Version: ${VERSION} Build-date: ${BUILD_DATE}"
 
 # unifi package version
-ARG UNIFI_VER="5.6.12-d503e7daad"
+ARG UNIFI_VER="5.6.14-f7a900184a"
 
 RUN apt-get update \
   # add mongodb repo
@@ -22,7 +22,7 @@ RUN apt-get update \
   # add additional packages
   && apt-get update \
   && apt-get install -y \
-	  binutils \
+    binutils \
     jsvc \
     mongodb-org-server \
     oracle-java8-installer \
