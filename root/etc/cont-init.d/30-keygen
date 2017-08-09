@@ -19,5 +19,5 @@
 	-keysize 4096 -dname "cn=unifi"
 
 # permissions
-chown abc:abc \
+chown mcf:mcf \
 	/config/data/keystore
