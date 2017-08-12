@@ -1,33 +1,30 @@
 FROM mcfio/java
 MAINTAINER nmcfaul
 
-# set environment variables
-ARG DEBIAN_FRONTEND="noninteractive"
-
 # unifi package version
 ARG UNIFI_VER="5.6.14-f7a900184a"
 
-RUN \
-  # add mongodb repo
-  apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 0C49F3730359A14518585931BC711F9BA15703C6 \
-  && echo "deb [ arch=amd64,arm64 ] http://repo.mongodb.org/apt/ubuntu xenial/mongodb-org/3.4 multiverse" >> /etc/apt/sources.list.d/mongodb-org-3.4.list \
+RUN apk upgrade --update \
+  # Install mongodb
+  && apk add --no-cache --virtual=build-dependencies \
+    curl \
+    tar \
+  && apk add --no-cache \
+    mongodb \
 
-  # add additional packages
-  && apt-get update \
-  && apt-get install -y \
-    binutils \
-    mongodb-org-server \
-  
   # Install unifi
-  && curl -J -L -o /tmp/unifi.deb -L https://www.ubnt.com/downloads/unifi/${UNIFI_VER}/unifi_sysvinit_all.deb \
-  && dpkg -i --force-depends /tmp/unifi.deb \
+  && curl -J -L -o /tmp/UniFi.unix.zip https://www.ubnt.com/downloads/unifi/5.6.14-f7a900184a/UniFi.unix.zip \
+  && mkdir -p /usr/lib/unifi \
+  && cd /tmp && unzip UniFi.unix.zip \
+  && cp -vr /tmp/UniFi/* /usr/lib/unifi \
+  && rm /usr/lib/unifi/bin/mongod \
+  && ln -s /usr/bin/mongod /usr/lib/unifi/bin/mongod \
   
   # Cleanup
-  && apt-get clean \
+  && apk del --purge \
+    build-dependencies \
   && rm -rf \
-    /tmp/* \
-    /var/lib/apt/lists/* \
-    /var/tmp/*
+    /tmp/*
 	
 # add local files
 COPY root/ /
