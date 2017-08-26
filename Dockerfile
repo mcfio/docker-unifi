@@ -13,7 +13,7 @@ RUN apk upgrade --update \
     mongodb \
 
   # Install unifi
-  && curl -J -L -o /tmp/UniFi.unix.zip https://www.ubnt.com/downloads/unifi/5.6.14-f7a900184a/UniFi.unix.zip \
+  && curl -J -L -o /tmp/UniFi.unix.zip https://www.ubnt.com/downloads/unifi/${UNIFI_VER}/UniFi.unix.zip \
   && mkdir -p /usr/lib/unifi \
   && cd /tmp && unzip UniFi.unix.zip \
   && cp -vr /tmp/UniFi/* /usr/lib/unifi \
