@@ -2,7 +2,7 @@ FROM mcfio/java
 MAINTAINER nmcfaul
 
 # unifi package version
-ARG UNIFI_VER="5.6.15-23e9b6ff64"
+ARG UNIFI_VER="5.6.16-86cdeea491"
 
 RUN apk upgrade --update \
   # Install mongodb
